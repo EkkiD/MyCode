@@ -1,0 +1,58 @@
+update_interval 0.5
+font -artwiz-lime-*-r-normal-*-*-*-*-*-*-*-iso8859-1
+background yes
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+draw_shades no
+draw_outline no
+draw_borders no
+border_inner_margin 2
+border_width 1
+minimum_size 1440x10
+draw_graph_borders yes
+default_color white
+default_shade_color black
+default_outline_color black
+alignment bm
+gap_x 0
+gap_y 0
+no_buffers yes
+uppercase no
+double_buffer yes
+override_utf8_locale yes
+use_xft yes
+xftfont lime:size=9
+mpd_host localhost
+mpd_port 6600
+TEXT
+${alignc} \
+${color lightgrey}CPU${color white} ${freq_g} \
+${if_match ${cpu cpu1} >= 75}${color red}${endif}\
+${cpubar cpu1 8,12} \
+${color white}\
+${if_match ${cpu cpu2} >= 75}${color red}${endif}\
+${cpubar cpu2 8,12} \
+${color white}\
+${if_match ${cpu cpu3} >= 75}${color red}${endif}\
+${cpubar cpu3 8,12} \
+${color white}\
+${if_match ${cpu cpu4} >= 75}${color red}${endif}\
+${cpubar cpu4 8,12} \
+${color white}\
+${exec coretemp}\
+#:: GPU ${texeci 5 nvtemp}C \
+:: ${loadavg} :: ${uptime_short} \
+:: ${color lightgrey}RAM${color white} \
+${if_match ${memperc} >= 75}${color red}${endif}\
+${membar 8,12 } \
+${color lightgrey}Swap${color white} ${swapbar 8,12} \
+:: ${color lightgrey}Root${color white} ${fs_bar 8,12 /} \
+${color lightgrey}Data${color white} ${fs_bar 8,10 /mnt/media} \
+${if_up eth0}\
+:: ${addr eth0} ${downspeed eth0}/s - ${upspeed eth0}/s \
+${endif}\
+${if_match "${mpd_status}" == "Playing"}\
+:: MPD ${mpd_smart}\
+${endif}\

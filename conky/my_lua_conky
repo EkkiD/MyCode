@@ -1,0 +1,32 @@
+# based on the conkyrc posted by Foucault on the archlinux forums
+
+double_buffer yes
+max_user_text 124000
+max_text_width 0
+
+own_window  yes
+own_window_type   override
+own_window_transparent    no
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_page
+
+gap_x 0
+gap_y 0
+alignment bm
+minimum_size 1366x10
+maximum_width 1366
+
+update_interval 2
+default_color  c7c7c7
+own_window_colour 101010
+draw_shades no
+use_spacer none
+
+
+use_xft yes
+xftfont Terminus (TTF):pixelsize=12
+
+
+lua_load ~/build/conky/colourise.lua
+# Yes, the following is one line
+TEXT
+${font Terminus (TTF):bold:pixelsize=12}Up:$font ${uptime_short} | ${font Terminus (TTF):bold:pixelsize=12}Load:${font} ${font Terminus (TTF):bold:pixelsize=12}${lua_parse conky_colorise_cpu 0} ${lua_parse conky_colorise_cpu 1} ${lua_parse conky_colorise_cpu 2} ${lua_parse conky_colorise_cpu 3} @ ${lua_parse weight_frequency 4}$font${voffset 0} | ${font Terminus (TTF):bold:pixelsize=12}Mem:${font} ${lua_parse conky_colorise_mem} | ${font Terminus (TTF):bold:pixelsize=12}Net:${font} ${lua_parse conky_format_speeds wlan0} | ${font Terminus (TTF):bold:pixelsize=12}CPU:${font} ${lua_parse colorise_temps hwmon+0+temp+1 25 75} ${font Terminus (TTF):bld:pixelsize=12}M/B:${font}  ${font Terminus (TTF):bold:pixelsize=12}GPU:${font} ${lua_parse colorise_temps nvidia+temp 25 90} |  ${font Terminus (TTF):bold:pixelsize=12}/:${font} ${fs_free /} – ${font Terminus (TTF):bold:pixelsize=12}/home:${font} ${fs_free /home} | ${font Terminus (TTF):bold:pixelsize=12}Pacman:${font} ${execpi 1000 /home/erick/build/conky/pacupdate.pl} | ${font Terminus (TTF):bold:pixelsize=12}Vol:${font} ${exec amixer get Master| perl -ne 'if($_ =~ m/\[on\]/){ @l = split(/\s+/,$_); $l[4] =~ s/[\[\]]//g; print $l[4];}'}
