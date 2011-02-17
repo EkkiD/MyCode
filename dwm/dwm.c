@@ -121,6 +121,7 @@ typedef struct {
 typedef struct {
 	const char *symbol;
 	void (*arrange)(Monitor *);
+    int nmaster;
 } Layout;
 
 typedef struct {
@@ -223,7 +224,6 @@ static int xerror(Display *dpy, XErrorEvent *ee);
 static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void zoom(const Arg *arg);
-static void initnmaster(void);
 static void incnmaster(const Arg* arg);
 static void setnmaster(const Arg* arg);
 static void ntile(Monitor* m);
@@ -287,6 +287,7 @@ struct Monitor {
 	const Layout *lts[LENGTH(tags) + 1];
 	double mfacts[LENGTH(tags) + 1];
 	Bool showbars[LENGTH(tags) + 1];
+    int nmaster[LENGTH(tags) + 1];
 };
 #include "nmaster-ncol.c"
 
@@ -636,6 +637,7 @@ createmon(void) {
 		m->mfacts[i] = mfact;
 		m->lts[i] = &layouts[0];
 		m->showbars[i] = m->showbar;
+        m->nmaster[i] = nmaster;
 	}
 
 	return m;

@@ -1,25 +1,12 @@
 enum {MaxMon = 8};
-static int nmasters[MaxMon];
-static int initnm = 0;
-
-static void
-initnmaster(void) {
-	int i;
-
-	if(initnm)
-		return;
-	for(i = 0; i < MaxMon; i++)
-		nmasters[i] = nmaster;
-	initnm = 1;
-}
 
 static void
 incnmaster(const Arg *arg) {
 	if(!arg || !selmon->lt[selmon->sellt]->arrange || selmon->num >= MaxMon)
 		return;
-	nmasters[selmon->num] += arg->i;
-	if(nmasters[selmon->num] < 0)
-		nmasters[selmon->num] = 0;
+	selmon->nmaster[selmon->curtag]+= arg->i;
+	if(selmon->nmaster[selmon->curtag]< 0)
+		selmon->nmaster[selmon->curtag] = 0;
 	arrange(NULL);
 }
 
@@ -27,7 +14,7 @@ static void
 setnmaster(const Arg *arg) {
 	if(!arg || !selmon->lt[selmon->sellt]->arrange || selmon->num >= MaxMon)
 		return;
-	nmasters[selmon->num] = arg->i > 0 ? arg->i : 0;
+		selmon->nmaster[selmon->curtag]= arg->i > 0 ? arg->i : 0;
 	arrange(NULL);
 }
 
@@ -37,10 +24,10 @@ ntile(Monitor *m) {
 	unsigned int i, n;
 	Client *c;
 
-	initnmaster();
 	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	c = nexttiled(m->clients);
-	nm = m->num < MaxMon ? nmasters[m->num] : nmaster;
+	nm = m->num < MaxMon ?  selmon->nmaster[selmon->curtag] : nmaster;
+
 	if(nm > n)
 		nm = n;
 	/* master */
@@ -82,10 +69,9 @@ ncol(Monitor *m) {
 	unsigned int i, n;
 	Client *c;
 
-	initnmaster();
 	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	c = nexttiled(m->clients);
-	nm = m->num < MaxMon ? nmasters[m->num] : nmaster;
+	nm = m->num < MaxMon ? selmon->nmaster[selmon->curtag] : nmaster;
 	if(nm > n)
 		nm = n;
 	/* master */
@@ -123,10 +109,9 @@ nbstack(Monitor *m) {
 	unsigned int i, n;
 	Client *c;
 
-	initnmaster();
 	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	c = nexttiled(m->clients);
-	nm = m->num < MaxMon ? nmasters[m->num] : nmaster;
+	nm = m->num < MaxMon ? selmon->nmaster[selmon->curtag] : nmaster;
 	if(nm > n)
 		nm = n;
 	/* master */
