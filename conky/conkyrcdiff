@@ -1,0 +1,10 @@
+13,16c13,16
+< gap_y 132
+< alignment bl
+< minimum_size 1366x7
+< maximum_width 1366
+---
+> gap_y 0
+> alignment br
+> minimum_size 1440x7
+> maximum_width 1440
