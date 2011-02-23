@@ -4,6 +4,7 @@ do
 	local cool = "88CC00"
 	local medi = "DDDD00"
 	local hot = "EE5555"
+    local mpd = "7093DB"
 	function conky_colorise_cpu(arg)
 		-- arg is which cpu
 		local color = "000000"
@@ -18,7 +19,7 @@ do
 		else
 			color = hot
 		end
-		return string.format('${color %s}%3i%%${color}',color,tonumber(perc))
+		return string.format('${color %s}%3i${color}',color,tonumber(perc))
 		
 	end
 
@@ -56,7 +57,7 @@ do
 				max = freqs[i]
 			end
 		end
-		return string.format('%3.1f GHz',max)
+		return string.format('%3.1f',max)
 	end
 
 	function conky_colorise_temps(what_, min__, max__)
@@ -75,4 +76,9 @@ do
 		end
 		return string.format('${color %s}%s°C${color}',color,what)
 	end
+
+    function conky_colorise_mpd(arg)
+            color = mpd
+            return string.format('${color %s}%s${color}', color, tostring(arg))
+    end
 end
