@@ -7,15 +7,15 @@ incnmaster(const Arg *arg) {
 	selmon->nmaster[selmon->curtag]+= arg->i;
 	if(selmon->nmaster[selmon->curtag]< 0)
 		selmon->nmaster[selmon->curtag] = 0;
-	arrange(NULL);
+	arrange(selmon);
 }
 
 static void
 setnmaster(const Arg *arg) {
 	if(!arg || !selmon->lt[selmon->sellt]->arrange || selmon->num >= MaxMon)
 		return;
-		selmon->nmaster[selmon->curtag]= arg->i > 0 ? arg->i : 0;
-	arrange(NULL);
+	selmon->nmaster[selmon->curtag]= arg->i > 0 ? arg->i : 0;
+	arrange(selmon);
 }
 
 static void
