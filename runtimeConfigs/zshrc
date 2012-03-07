@@ -100,3 +100,8 @@ plugins=(git mercurial archlinux github python)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+#
+
+DIRSTACKSIZE=20
+setopt autopushd pushdminus pushdsilent pushdtohome
+alias dh='dirs -v'
