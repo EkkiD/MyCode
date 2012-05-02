@@ -14,6 +14,7 @@ set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
                     " Spaces are used in indents with the '>' and '<' commands
                     " and when 'autoindent' is on. To insert a real tab when
                     " 'expandtab' is on, use CTRL-V <Tab>.
+set pastetoggle=<F2>
  
 set smarttab        " When on, a <Tab> in front of a line inserts blanks
                     " according to 'shiftwidth'. 'tabstop' is used in other
@@ -78,24 +79,63 @@ set background=dark " When set to "dark", Vim will try to use colors that look
                     " good on a dark background. When set to "light", Vim will
                     " try to use colors that look good on a light background.
                     " Any other value is illegal.
+                    "
+" ---------------------------------------------------------------------------
+"  Highlighting
+":match ErrorMsg /\%>80v.\+/
+
+
+" ---------------------------------------------------------------------------
+" Pathogen setup
+
+call pathogen#infect()
+
+" ----------------------------------------------------------------------------
+" Syntastic
+
+:let g:syntastic_auto_jump=1
+:let g:syntastic_check_on_open=1
+:let g:syntastic_auto_loc_list=1
+:let g:syntastic_mode_map = { 'mode': 'active',
+                               \ 'passive_filetypes': ['html', 'python'] }
+
+" ----------------------------------------------------------------------------
+" status line
+:set statusline=%F%m%r%h%w 
+:set statusline+=%#warningmsg#
+:set statusline+=%{SyntasticStatuslineFlag()}
+:set statusline+=%{fugitive#statusline()}
+:set statusline+=%*
+:set laststatus=2
  
 " ----------------------------------------------------------------------------
 "  mouse settings
 set mouse=a         " Enable the use of the mouse.
 set mousehide       " Hide the mouse while typing
 
+"----------------------------------------------------------------------------
+" remove highlights from text
 nnoremap <C-L> :nohls<CR><C-L>
 inoremap <C-L> <C-O>:nohls<CR>
 
-cmap tn tabnew
+"----------------------------------------------------------------------------
+" navigate tabs
 nnoremap <tab> :tabnext<CR>
-inoremap <C-tab> :tabnext<CR>
 nnoremap <S-tab> :tabprev<CR>
+
+" let ; be a :, and ;; be ; in normal mode
+map ; :
+nnoremap ;; ;
+nnoremap t :tabnew 
+
+nnoremap <C-q> :mksession .vimsesh <CR> :qa
+
+map <CR> o<Esc>k
 
 " Make the mouse paste unformatted block of code
 map <MouseMiddle> <esc>"*p  
 
-"map Y y$
+map Y y$
 
 filetype plugin on
 filetype indent on
@@ -126,19 +166,31 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 
-"function SuperCleverTab()
-"    if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
-"        return "\<Tab>"
-"    else
-"        if &omnifunc != '' && &ft =="cpp"
-"            return "\<C-X>\<C-O>"
-"        elseif &dictionary != ''
-"            return "\<C-K>"
-"        else
-"            return "\<C-N>"
-"        endif
-"    endif
-"endfunction
+nmap <F4> :w<CR>:make<CR>:cw<CR>
 
-"inoremap <Tab> <C-R>=SuperCleverTab()<cr>
+
+"----------------------------------------------------------------------------
+" Functions for session saving and restoration
+"
+
+function! SaveSess()
+    execute 'mksession!' . getcwd() . '/.session.vim'
+endfunction
+
+"if there were no args to vim and the file is readable
+function! RestoreSess()
+    if argc() == 0 && filereadable(getcwd() . '/.session.vim') 
+        execute 'source' getcwd() . '/.session.vim'
+        if bufexists(1)
+            for l in range(1, bufnr('$'))
+                if bufwinnr(l) == -1
+                    exec 'sbuffer ' . l
+                endif
+            endfor
+        endif
+    endif    
+endfunction
+
+autocmd VimLeave * call SaveSess()
+autocmd VimEnter * call RestoreSess()
 
