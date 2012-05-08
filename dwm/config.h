@@ -21,9 +21,10 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
+	{ "Nightly",  NULL,       NULL,       1 << 7,       False,       -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 7,       False,       -1 },
     { "Pidgin",   NULL,       NULL,       1 << 5,       False,        0 },
-    { "Gmpc",     NULL,       NULL,       1 << 3,       False,        0 }
+    { "Daily",   NULL,        NULL,        1 << 6,        False,        0 },
 };
 
 /* layout(s) */
@@ -45,7 +46,7 @@ static const Layout layouts[] = {
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, 
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -53,18 +54,23 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
-static const char *firefoxcmd[]  = { "exec /usr/bin/firefox-beta-bin", NULL };
+static const char *firefoxcmd[]  = { "/usr/bin/firefox", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
     { MODKEY,                       XK_a,      incnmaster,     {.i = +1} },
     { MODKEY,                       XK_z,      incnmaster,     {.i = -1} },
     { MODKEY,                       XK_s,      setlayout,      {.v = &layouts[3] } },
-    { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0] } },
+    { MODKEY,                       XK_r,      setlayout,      {.v = &layouts[0] } },
     { MODKEY,                       XK_c,      setlayout,      {.v = &layouts[4] } },
     { MODKEY,                       XK_x,      setnmaster,     {.i = 1} },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+    { MODKEY,                       XK_F6,     spawn,          SHCMD("mpc toggle")},       
+    { MODKEY,                       XK_F7,     spawn,          SHCMD("mpc prev")},       
+    { MODKEY,                       XK_F8,     spawn,          SHCMD("mpc next")},       
+    { MODKEY,                       XK_F9,     spawn,          SHCMD("amixer set Master 5-")},       
+    { MODKEY,                       XK_F10,     spawn,          SHCMD("amixer set Master 5+")},       
 	//{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
