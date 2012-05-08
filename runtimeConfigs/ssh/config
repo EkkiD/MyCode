@@ -1,0 +1,46 @@
+Host 350
+	HostName cpu14-solaris.student.cs.uwaterloo.ca
+	User ekgdrans
+	ServerAliveInterval 60
+	ServerAliveCountMax 120
+
+Host cs
+	HostName linux.student.cs.uwaterloo.ca
+	User ekgdrans
+	ServerAliveInterval 60
+	ServerAliveCountMax 120
+
+Host gfx
+	HostName gl19.student.cs.uwaterloo.ca
+	User ekgdrans
+	ServerAliveInterval 60
+	ServerAliveCountMax 120
+
+Host irssi
+	HostName linux008.student.cs.uwaterloo.ca
+	User ekgdrans
+	ServerAliveInterval 60
+	ServerAliveCountMax 120
+
+Host github.com
+    User git
+    Hostname github.com
+    PreferredAuthentications publickey
+    IdentityFile /home/erick/.ssh/id_rsa
+
+Host hg.mozilla.org
+    User edransch@mozilla.com
+    PreferredAuthentications publickey
+    IdentityFile /home/erick/.ssh/id_rsa
+
+Host people
+    HostName people.mozilla.com
+    User edransch
+
+Host dev-master
+    HostName dev-master01.build.mozilla.org
+    User edransch
+
+Host=nfsn
+    HostName ssh.phx.nearlyfreespeech.net
+    User edransch_edransch-main
