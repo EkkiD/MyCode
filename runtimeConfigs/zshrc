@@ -3,6 +3,15 @@ ZSH=$HOME/.oh-my-zsh
 
 EDITOR="vim"
 
+export WORKON_HOME=$HOME/.virtualenvs
+VIRTUALENVWRAPPER_PYTHON=$HOME/venv/bin/python
+source $HOME/venv/bin/virtualenvwrapper.sh
+echo "Welcome to Erick's bash"
+PATH=$PATH:/$HOME/venv/bin
+export BASEDIR=Users/edransch/mozilla/build-master
+
+. /sw/bin/init.sh
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
