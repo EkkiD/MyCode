@@ -26,9 +26,9 @@ alias python-dev='~/ws_python_env/bin/python'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias halt='sudo halt'
+alias halt='sudo shutdown -h now'
 alias reboot='sudo reboot'
-alias exeunt='sudo halt'
+alias exeunt='sudo shutdown -h now'
 alias svim='sudo vim'
 alias svi='sudo vim'
 
@@ -119,6 +119,15 @@ setopt autopushd pushdminus pushdsilent pushdtohome
 
 setopt NOCLOBBER
 
-source $HOME/Erick/work_dot_profile
+typeset -A key
+key[Home]=${terminfo[khome]}
+key[End]=${terminfo[kend]}
+key[Insert]=${terminfo[kich1]}
+key[Delete]=${terminfo[kdch1]}
+
+[[ -n "${key[Home]}" ]] && bindkey "${key[Home]}" beginning-of-line
+[[ -n "${key[End]}" ]] && bindkey "${key[End]}" end-of-line
+
+export PATH="$PATH:/usr/local/racket/bin"
 
 

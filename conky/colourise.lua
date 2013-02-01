@@ -74,7 +74,7 @@ do
 		else
 			color = hot
 		end
-		return string.format('${color %s}%sÂ°C${color}',color,what)
+		return string.format('${color %s}%s°C${color}',color,what)
 	end
 
     function conky_colorise_mpd(arg)

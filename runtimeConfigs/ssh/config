@@ -11,10 +11,11 @@ Host cs
 	ServerAliveCountMax 120
 
 Host gfx
-	HostName gl19.student.cs.uwaterloo.ca
+	HostName gl26.student.cs.uwaterloo.ca
 	User ekgdrans
 	ServerAliveInterval 60
 	ServerAliveCountMax 120
+    ForwardX11 yes
 
 Host sentry
 	HostName sentry.erickdransch.com
