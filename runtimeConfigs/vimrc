@@ -14,7 +14,6 @@ set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
                     " Spaces are used in indents with the '>' and '<' commands
                     " and when 'autoindent' is on. To insert a real tab when
                     " 'expandtab' is on, use CTRL-V <Tab>.
-set pastetoggle=<F2>
  
 set smarttab        " When on, a <Tab> in front of a line inserts blanks
                     " according to 'shiftwidth'. 'tabstop' is used in other
@@ -97,7 +96,7 @@ call pathogen#infect()
 :let g:syntastic_check_on_open=1
 :let g:syntastic_auto_loc_list=1
 :let g:syntastic_mode_map = { 'mode': 'active',
-                               \ 'passive_filetypes': ['html', 'python', 'cpp'] }
+                               \ 'passive_filetypes': ['html', 'python', 'cpp', 'c'] }
 
 " ----------------------------------------------------------------------------
 " Local VIMrc
@@ -107,11 +106,13 @@ call pathogen#infect()
 
 " ----------------------------------------------------------------------------
 " status line
-:set statusline=%F%m%r%h%w 
+:set statusline=%F%m%r%h%w
 :set statusline+=%#warningmsg#
 :set statusline+=%{SyntasticStatuslineFlag()}
 :set statusline+=%{fugitive#statusline()}
 :set statusline+=%*
+:set statusline+=%=
+:set statusline+=%c
 :set laststatus=2
  
 " ----------------------------------------------------------------------------
@@ -149,13 +150,14 @@ filetype indent on
 set ofu=syntaxcomplete#Complete
 
 syntax on
+au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 
 autocmd! bufwritepost vimrc source ~/.vimrc
 
 cmap w!! %!sudo tee > /dev/null %
 
 command H FSHere
-map H :FSHere<CR>
+map H :w<CR>:FSHere<CR>
 
 "confiugure tags
 
@@ -202,4 +204,27 @@ endfunction
 
 autocmd VimLeave * call SaveSess()
 autocmd VimEnter * call RestoreSess()
+
+
+set switchbuf=useopen
+function! MakeWithCopen()
+    make!
+    let qflist = getqflist()
+    for e in qflist
+        if e.valid
+            tabnew
+            copen 15
+            break
+        endif
+    endfor
+endfunction
+
+set pastetoggle=<F2>
+
+au FileType c,cpp,cc,h,hpp map <F2> :call MakeWithCopen()<CR>
+au FileType c,cpp,cc,h,hpp map <F3> :cprev<CR>
+au FileType c,cpp,cc,h,hpp map <F4> :cnext<CR>
+
+colorscheme lucius
+    
 
