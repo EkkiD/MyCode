@@ -16,9 +16,9 @@ Host gfx
 	ServerAliveInterval 60
 	ServerAliveCountMax 120
 
-Host irssi
-	HostName linux008.student.cs.uwaterloo.ca
-	User ekgdrans
+Host sentry
+	HostName sentry.erickdransch.com
+	User erick
 	ServerAliveInterval 60
 	ServerAliveCountMax 120
 
