@@ -29,7 +29,7 @@ Host github.com
     IdentityFile /home/erick/.ssh/id_rsa
 
 Host hg.mozilla.org
-    User edransch@mozilla.com
+    User edransch.contact@gmail.com
     PreferredAuthentications publickey
     IdentityFile /home/erick/.ssh/id_rsa
 
