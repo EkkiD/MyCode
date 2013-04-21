@@ -206,7 +206,6 @@ endfunction
 autocmd VimLeave * call SaveSess()
 autocmd VimEnter * call RestoreSess()
 
-
 set switchbuf=useopen
 function! MakeWithCopen()
     make!
@@ -226,6 +225,10 @@ au FileType c,cpp,cc,h,hpp map <F2> :call MakeWithCopen()<CR>
 au FileType c,cpp,cc,h,hpp map <F3> :cprev<CR>
 au FileType c,cpp,cc,h,hpp map <F4> :cnext<CR>
 
-colorscheme lucius
-    
+let g:zenburn_high_Contrast=1
+colorscheme zenburn
 
+let g:clang_snippets = 1
+let g:clang_close_preview = 1
+let g:clang_complete_auto=1
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
