@@ -91,16 +91,8 @@ set background=dark " When set to "dark", Vim will try to use colors that look
 call pathogen#infect()
 
 " ----------------------------------------------------------------------------
-" Syntastic
-
-:let g:syntastic_auto_jump=1
-:let g:syntastic_check_on_open=1
-:let g:syntastic_auto_loc_list=1
-:let g:syntastic_mode_map = { 'mode': 'active',
-                               \ 'passive_filetypes': ['html', 'python', 'cpp', 'c'] }
-
-" ----------------------------------------------------------------------------
 " Local VIMrc
+" ----------------------------------------------------------------------------
 
 :let g:localvimrc_sandbox=0
 
@@ -109,7 +101,6 @@ call pathogen#infect()
 " status line
 :set statusline=%F%m%r%h%w
 :set statusline+=%#warningmsg#
-:set statusline+=%{SyntasticStatuslineFlag()}
 :set statusline+=%{fugitive#statusline()}
 :set statusline+=%*
 :set statusline+=%=
