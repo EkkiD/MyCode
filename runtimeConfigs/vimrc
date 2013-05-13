@@ -122,6 +122,9 @@ inoremap <C-L> <C-O>:nohls<CR>
 nnoremap <tab> :tabnext<CR>
 nnoremap <S-tab> :tabprev<CR>
 
+nnoremap <leader>o <C-o>
+nnoremap <leader>i <C-i>
+
 " let ; be a :, and ;; be ; in normal mode
 map ; :
 nnoremap ;; ;
@@ -143,6 +146,7 @@ set ofu=syntaxcomplete#Complete
 
 syntax on
 au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
+au BufNewFile,BufRead *.rs set filetype=rust
 
 autocmd! bufwritepost vimrc source ~/.vimrc
 
