@@ -134,6 +134,12 @@ nnoremap <C-q> :mksession .vimsesh <CR> :qa
 
 map <CR> o<Esc>k
 
+"Relative Line numbers in normal mode, absolute in insert mode
+autocmd FocusLost * :set number
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+autocmd CursorMoved * :set relativenumber
+
 " Make the mouse paste unformatted block of code
 map <MouseMiddle> <esc>"*p  
 
