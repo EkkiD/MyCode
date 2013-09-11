@@ -1,0 +1,22 @@
+[ui]
+username = Erick Dransch (edransch.contact@gmail.com)
+
+[paths]
+default = http://hg.mozilla.org/mozilla-central/
+try = ssh://hg.mozilla.org/try
+
+[alias]
+try = push -f ssh://hg.mozilla.org/try
+
+[defaults]
+qnew = -Ue
+
+[extensions]
+mq = 
+prompt = ~/build/hg-prompt/prompt.py
+
+[diff]
+git = 1
+unified = 8
+showfunc = 1
+
