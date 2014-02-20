@@ -32,7 +32,7 @@ Host github.com
 Host hg.mozilla.org
     User edransch.contact@gmail.com
     PreferredAuthentications publickey
-    IdentityFile /home/erick/.ssh/id_rsa
+    IdentityFile /home/erick/.ssh/main_id_rsa
 
 Host people
     HostName people.mozilla.com
@@ -42,6 +42,13 @@ Host dev-master
     HostName dev-master01.build.mozilla.org
     User edransch
 
-Host=nfsn
+Host nfsn
     HostName ssh.phx.nearlyfreespeech.net
     User edransch_edransch-main
+
+Host up-git
+    HostName git.upverter.com
+    User git
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/main_id_rsa
+
