@@ -1,10 +1,23 @@
 " .vimrc
+"
+"
 " Notes: you are suggested to see
 "        http://vimdoc.sourceforge.net/htmldoc/options.html
 "        for more information.
 
 " multi-bytes characters support, for example CJK support:
 "set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'flazz/vim-colorschemes'
+Bundle 'majutsushi/tagbar'
+Bundle 'luochen1990/rainbow'
+Bundle 'junegunn/seoul256.vim'
+filetype plugin indent on
 
 set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
  
@@ -52,10 +65,6 @@ set autoindent      " Copy indent from current line when starting a new line
                     " (typing <CR> in Insert mode or when using the "o" or "O"
                     " command).
  
-set smartindent     " Do smart autoindenting when starting a new line. Works
-                    " for C-like programs, but can also be used for other
-                    " languages.
- 
 "set textwidth=79    " Maximum width of text that is being inserted. A longer
                     " line will be broken after white space to get this width.
  
@@ -84,11 +93,11 @@ set background=dark " When set to "dark", Vim will try to use colors that look
 "  Highlighting
 ":match ErrorMsg /\%>80v.\+/
 
-
 " ---------------------------------------------------------------------------
 " Pathogen setup
 
 call pathogen#infect()
+
 
 " ----------------------------------------------------------------------------
 " Local VIMrc
@@ -114,8 +123,8 @@ set mousehide       " Hide the mouse while typing
 
 "----------------------------------------------------------------------------
 " remove highlights from text
-nnoremap <C-L> :nohls<CR><C-L>
-inoremap <C-L> <C-O>:nohls<CR>
+nnoremap <C-g> :nohls<CR><C-g>
+inoremap <C-g> <C-O>:nohls<CR>
 
 "----------------------------------------------------------------------------
 " navigate tabs
@@ -148,8 +157,6 @@ map Y y$
 filetype plugin on
 filetype indent on
 
-set ofu=syntaxcomplete#Complete
-
 syntax on
 au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 au BufNewFile,BufRead *.rs set filetype=rust
@@ -162,6 +169,9 @@ command H FSHere
 map H :w<CR>:FSHere<CR>
 
 "confiugure tags
+
+:command! ToPoints %s/{["'][Xx]["']\s*:\s*\(\-\?\d\+\),\s*["'][yY]['"]\s*:\s*\(\-\?\d\+\)\s*}/new up.common.Point(\1, \2)/g
+
 
 set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/gl
@@ -213,10 +223,20 @@ au FileType c,cpp,cc,h,hpp map <F2> :call MakeWithCopen()<CR>
 au FileType c,cpp,cc,h,hpp map <F3> :cprev<CR>
 au FileType c,cpp,cc,h,hpp map <F4> :cnext<CR>
 
-let g:zenburn_high_Contrast=1
-colorscheme zenburn
-
-let g:clang_snippets = 1
-let g:clang_close_preview = 1
-let g:clang_complete_auto=1
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+let python_highlight_all = 1
+
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+set t_Co=256
+
+nmap <F8> :TagbarToggle<CR>
+colorscheme wombat256
+let g:rainbow_active = 1
+
+" Smart way to move btw. windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
