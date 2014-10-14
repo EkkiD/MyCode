@@ -13,7 +13,6 @@ qnew = -Ue
 
 [extensions]
 mq = 
-prompt = ~/build/hg-prompt/prompt.py
 
 [diff]
 git = 1

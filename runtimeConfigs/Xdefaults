@@ -1,5 +1,5 @@
 urxvt*transparent:		true
-urxvt*shading:			55
+urxvt*shading:			35
 urxvt*color:			111111
 urxvt*inheritPixmap:		true
 urxvt*scrollColor:	rgb:44/47/50

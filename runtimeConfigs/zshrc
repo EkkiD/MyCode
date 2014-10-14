@@ -21,14 +21,12 @@ ZSH_THEME="bira"
 alias connect='sudo wpa_supplicant -i wlan0 -c /etc/wpa_supplicant.conf'
 alias lease='sudo dhcpcd'
 
-alias python-dev='~/ws_python_env/bin/python'
-
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias halt='sudo shutdown -h now'
+alias halt='sudo shutdown -hP now'
 alias reboot='sudo reboot'
-alias exeunt='sudo shutdown -h now'
+alias exeunt='sudo shutdown -hP now'
 alias svim='sudo vim'
 alias svi='sudo vim'
 
@@ -48,10 +46,10 @@ alias pac='pacman'
 alias pacs='pacman -S'
 alias pacss='pacman -Ss'
 alias pacq='pacman -Q|grep'
+alias pacclean='pacman -Rns $(pacman -Qtdq)'
+alias pacro="pacman -Qtdq > /dev/null && sudo pacman -Rns \$(pacman -Qtdq)"
 
 alias skype='su skypeuser -c "dbus-launch --exit-with-session skype"'
-
-alias mntcs='sshfs ekgdrans@student.cs.uwaterloo.ca: /mnt/uw'
 
 alias vol='amixer set Master'
 
@@ -60,6 +58,9 @@ alias html2pdf='wkhtmltopdf'
 
 ### programming ###
 alias vgrind='valgrind --leak-check=yes --show-reachable=yes'
+
+alias openglproj='source ~/environments/opengl/bin/activate'
+alias pebbleenv='source ~/environments/pebble/bin/activate'
 
 function mkcd() { mkdir "$1" && cd "$1"; }
 
@@ -128,6 +129,7 @@ key[Delete]=${terminfo[kdch1]}
 [[ -n "${key[Home]}" ]] && bindkey "${key[Home]}" beginning-of-line
 [[ -n "${key[End]}" ]] && bindkey "${key[End]}" end-of-line
 
-export PATH="$PATH:/usr/local/racket/bin"
+export PATH="$PATH:/usr/bin/vendor_perl:/home/erick/pebble/PebbleSDK-2.0.0/bin"
 
+export CCACHE_COMPRESS=""
 

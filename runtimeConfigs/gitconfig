@@ -1,6 +1,6 @@
 [user]
 	name = Erick Dransch
-	email = edransch@mozilla.com
+	email = ekgdrans@uwaterloo.ca
 [alias]
     di = diff -U8 --patch-with-stat --binary
     d = difftool
